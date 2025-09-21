@@ -1,0 +1,42 @@
+name: "Bug report"
+description: "Let us know when something in GovHub isn’t working as expected"
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: What went wrong?
+      description: Clearly describe the issue and what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the actions needed to trigger the problem.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See the error
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit
+      description: Include the GovHub version, commit hash, or environment where the issue occurs.
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Paste any error messages, stack traces, or add screenshots that help us understand the problem.
+      render: text
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional details
+      description: Add any other context that might be useful for investigating this bug.
