@@ -1,0 +1,40 @@
+name: "Feature request"
+description: "Suggest an idea or improvement for GovHub"
+title: "[Feature Request]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Explain the issue or limitation you are facing.
+      placeholder: "Example: I often struggle with [...]"
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe what you would like GovHub to do differently.
+      placeholder: "Example: I would like GovHub to [...]"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Mention any other approaches you thought about, and why they weren’t chosen.
+      placeholder: "Example: I tried [...] but it didn’t solve the problem because [...]"
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add extra details, references, or screenshots to support your request.
+      placeholder: "Tip: You can drag and drop screenshots here."
+    validations:
+      required: false
