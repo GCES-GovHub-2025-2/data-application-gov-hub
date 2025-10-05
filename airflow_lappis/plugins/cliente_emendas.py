@@ -1,12 +1,16 @@
 import http
+import os
 from typing import Optional
+from dotenv import load_dotenv
 
 from cliente_base import ClienteBase
 
+load_dotenv()
 
 class ClienteEmendas(ClienteBase):
 
-    BASE_URL = "https://api.portaldatransparencia.gov.br" 
+    BASE_URL = "https://api.portaldatransparencia.gov.br"
+    API_KEY = os.getenv("PORTAL_TRANSPARENCIA_API_KEY")
 
     def __init__(self) -> None:
         super().__init__(base_url=ClienteEmendas.BASE_URL)
@@ -56,7 +60,10 @@ class ClienteEmendas(ClienteBase):
         if codigoSubfuncao:
             params["codigoSubfuncao"] = codigoSubfuncao
 
-        headers = {"accept": "*/*"}
+        headers = {
+            "accept": "*/*",
+            "chave-api-dados": self.API_KEY
+        }
 
         status, data = self.request(
             http.HTTPMethod.GET, endpoint, params=params, headers=headers
