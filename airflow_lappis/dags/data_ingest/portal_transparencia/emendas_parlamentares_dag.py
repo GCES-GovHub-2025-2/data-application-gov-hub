@@ -1,6 +1,4 @@
 import logging
-import hashlib
-import json
 from airflow.decorators import dag, task
 from datetime import datetime, timedelta
 from postgres_helpers import get_postgres_conn
@@ -56,22 +54,11 @@ def api_emendas_dag() -> None:
             
             logging.info(f"Total de registros coletados: {len(registros)}")
             
-            # Gera ID único para cada registro baseado em hash do conteúdo
-            for idx, emenda in enumerate(registros):
-                # Cria um hash dos dados principais para garantir unicidade
-                dados_hash = json.dumps(emenda, sort_keys=True, default=str).encode('utf-8')
-                hash_id = hashlib.sha256(dados_hash).hexdigest()[:16]  # Primeiros 16 caracteres
-                emenda["id"] = hash_id
-            
-            logging.info(f"IDs únicos gerados para {len(registros)} registros")
-            
             # Insere os dados no banco
             if registros:
                 db.insert_data(
                     registros,
                     "emendas",
-                    conflict_fields=["id"],
-                    primary_key=["id"],
                     schema="public",
                 )
                 logging.info(f"Inseridos {len(registros)} registros no banco.")
