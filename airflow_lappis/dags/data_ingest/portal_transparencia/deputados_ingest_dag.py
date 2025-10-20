@@ -65,7 +65,8 @@ def deputados_ingest_dag() -> None:
                 # Localiza a ultima pagina
                 if len(deputados) < itens_por_pagina:
                     logging.info(
-                        f"Última página detectada (retornou {len(deputados)} < {itens_por_pagina})"
+                        f"Última página detectada "
+                        f"(retornou {len(deputados)} < {itens_por_pagina})"
                     )
                     break
 
