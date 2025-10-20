@@ -1,5 +1,6 @@
 import sys
 import os
+from typing import Any
 from unittest.mock import patch, MagicMock
 from datetime import datetime
 
@@ -116,15 +117,15 @@ class TestDeputadosIngestLogic:
     def test_error_handling_empty_data(self) -> None:
         """Testa tratamento de erros com dados vazios."""
         # Testa com dados None
-        deputados = None
+        deputados: list[dict[str, Any]] | None = None
 
         if deputados:
             for deputado in deputados:
                 deputado["dt_ingest"] = datetime.now().isoformat()
 
         # Testa com lista vazia
-        deputados = []
-        assert len(deputados) == 0
+        deputados_empty: list[dict[str, Any]] = []
+        assert len(deputados_empty) == 0
 
     def test_timestamp_format(self) -> None:
         """Testa se o timestamp está no formato correto."""
@@ -132,8 +133,9 @@ class TestDeputadosIngestLogic:
         deputado["dt_ingest"] = datetime.now().isoformat()
 
         # Verifica se o timestamp está no formato ISO
-        assert "T" in deputado["dt_ingest"]
-        assert len(deputado["dt_ingest"]) > 10
+        dt_ingest_str = str(deputado["dt_ingest"])
+        assert "T" in dt_ingest_str
+        assert len(dt_ingest_str) > 10
 
     def test_upsert_preparation_deputados(self) -> None:
         """Testa preparação dos dados de deputados para UPSERT."""
@@ -194,11 +196,11 @@ class TestDeputadosIngestLogic:
 
     def test_return_stats_format(self) -> None:
         """Testa formato dos stats retornados."""
-        filtros_config = {"siglaUf": "SP"}
+        filtros_config: dict[str, Any] = {"siglaUf": "SP"}
         total_deputados = 2
         paginas_processadas = 1
 
-        stats = {
+        stats: dict[str, Any] = {
             "total_deputados": total_deputados,
             "paginas_processadas": paginas_processadas,
             "filtros": filtros_config,

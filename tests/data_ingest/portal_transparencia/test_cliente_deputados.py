@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import Any
 from unittest.mock import patch, MagicMock
 
 # Adiciona o caminho dos plugins ao sys.path
@@ -52,7 +53,7 @@ class TestClienteDeputados:
     @patch("cliente_deputados.ClienteBase.request")
     def test_get_deputados_with_filters(self, mock_request: MagicMock) -> None:
         """Testa busca de deputados com filtros."""
-        mock_data = {"dados": []}
+        mock_data: dict[str, list[Any]] = {"dados": []}
         mock_request.return_value = (200, mock_data)
 
         self.cliente.get_deputados(
@@ -79,7 +80,7 @@ class TestClienteDeputados:
     @patch("cliente_deputados.ClienteBase.request")
     def test_get_deputados_empty_response(self, mock_request: MagicMock) -> None:
         """Testa comportamento quando API retorna lista vazia."""
-        mock_data = {"dados": []}
+        mock_data: dict[str, list[Any]] = {"dados": []}
         mock_request.return_value = (200, mock_data)
 
         result = self.cliente.get_deputados()
@@ -151,7 +152,7 @@ class TestClienteDeputados:
     @patch("cliente_deputados.ClienteBase.request")
     def test_get_legislaturas_with_params(self, mock_request: MagicMock) -> None:
         """Testa busca de legislaturas com parâmetros."""
-        mock_data = {"dados": []}
+        mock_data: dict[str, list[Any]] = {"dados": []}
         mock_request.return_value = (200, mock_data)
 
         self.cliente.get_legislaturas(ordem="ASC", ordenarPor="id")
@@ -174,7 +175,7 @@ class TestClienteDeputados:
     @patch("cliente_deputados.ClienteBase.request")
     def test_get_legislaturas_empty_response(self, mock_request: MagicMock) -> None:
         """Testa comportamento quando API retorna lista vazia de legislaturas."""
-        mock_data = {"dados": []}
+        mock_data: dict[str, list[Any]] = {"dados": []}
         mock_request.return_value = (200, mock_data)
 
         result = self.cliente.get_legislaturas()
