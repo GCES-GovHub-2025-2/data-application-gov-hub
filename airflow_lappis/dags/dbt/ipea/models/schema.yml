@@ -2955,6 +2955,101 @@ macros:
           Texto a ser convertido em data.
           O texto deve estar no formato MÊS(texto)/ANO(numero). Ex.: FEV/2024 -> 2024-02-01
 
+  # Emendas Parlamentares DBT
+
+  ## Bronze
+  - name: emendas
+    description: >
+      Modelo bronze de emendas parlamentares extraídas da API do Portal da Transparência.
+      Este modelo realiza a padronização inicial dos dados, incluindo conversão de tipos,
+      limpeza e normalização de valores financeiros. Os dados são atualizados diariamente
+      e refletem as emendas parlamentares executadas no âmbito federal.
+    meta:
+      tags:
+        - bronze
+    columns:
+      - name: codigo_emenda
+        description: >
+          Código único da emenda parlamentar, utilizado como identificador principal.
+        tests:
+          - not_null
+      
+      - name: numero_emenda
+        description: >
+          Número sequencial da emenda dentro do ano de referência.
+      
+      - name: ano
+        description: >
+          Ano de referência da emenda parlamentar.
+        tests:
+          - not_null
+      
+      - name: autor
+        description: >
+          Código ou identificador do autor da emenda.
+      
+      - name: nome_autor
+        description: >
+          Nome completo do parlamentar autor da emenda.
+      
+      - name: tipo_emenda
+        description: >
+          Tipo da emenda parlamentar (Individual, de Bancada Estadual, de Comissão, etc.).
+      
+      - name: localidade_gasto
+        description: >
+          Localidade onde o recurso da emenda foi ou será aplicado (UF, Município, ou Nacional).
+      
+      - name: funcao
+        description: >
+          Função orçamentária da emenda conforme classificação do Orçamento Geral da União.
+      
+      - name: subfuncao
+        description: >
+          Subfunção orçamentária da emenda, detalhamento da função conforme classificação orçamentária.
+      
+      - name: valor_empenhado
+        description: >
+          Valor empenhado da emenda em Reais (R$), formatado como numérico.
+          Representa o compromisso de pagamento assumido pela administração.
+        tests:
+          - not_null
+      
+      - name: valor_liquidado
+        description: >
+          Valor liquidado da emenda em Reais (R$), formatado como numérico.
+          Indica o montante referente a bens ou serviços efetivamente entregues.
+        tests:
+          - not_null
+      
+      - name: valor_pago
+        description: >
+          Valor efetivamente pago da emenda em Reais (R$), formatado como numérico.
+          Representa a transferência financeira realizada.
+        tests:
+          - not_null
+      
+      - name: data_carga
+        description: >
+          Timestamp de quando os dados foram carregados no modelo bronze, utilizado para auditoria e rastreabilidade.
+    data_tests:
+      - verificacao_tipagem:
+          nome_tabela: 'emendas.emendas'
+          nome_coluna: 'ano'
+          tipo_esperado: 'integer'
+      - verificacao_tipagem:
+          nome_tabela: 'emendas.emendas'
+          nome_coluna: 'valor_empenhado'
+          tipo_esperado: 'numeric'
+      - verificacao_tipagem:
+          nome_tabela: 'emendas.emendas'
+          nome_coluna: 'valor_liquidado'
+          tipo_esperado: 'numeric'
+      - verificacao_tipagem:
+          nome_tabela: 'emendas.emendas'
+          nome_coluna: 'valor_pago'
+          tipo_esperado: 'numeric'
+
 
 
 

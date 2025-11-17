@@ -19,7 +19,6 @@ clean-targets:
 
 models:
   ipea: 
-    +database: analytics
     contratos_dbt:
       +materialized: table
       +schema: contratos
@@ -40,6 +39,13 @@ models:
     orcamento_dbt:
       +materialized: table
       +schema: orcamento
+      views:
+        +materialized: view
+    emendas_dbt:
+      +materialized: table
+      +schema: emendas
+      bronze:
+        +materialized: table
       views:
         +materialized: view
     # siape_dbt: 

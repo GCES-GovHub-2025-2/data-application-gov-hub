@@ -48,3 +48,8 @@ sources:
       - name: estrutura_organizacional_cargos
       - name: cargos_funcao
       - name: unidade_organizacional
+
+  - name: portal_transparencia
+    schema: public
+    tables:
+      - name: emendas
