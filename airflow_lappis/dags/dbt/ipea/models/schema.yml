@@ -1559,6 +1559,50 @@ models:
       description: >
         Identificador único do Plano de Ação, conforme registrado no TransfereGov. É atribuído ao `num_transf` com base no cruzamento entre a nota de crédito (NC) e a unidade gestora emitente (UG).
 
+  # Portal Transparência DBT
+
+  ## Bronze
+  - name: deputados
+    description: >
+      Tabela bronze com dados dos deputados federais, obtidos através da API da Câmara dos Deputados.
+      Esta tabela contém informações básicas dos parlamentares como identificação, filiação partidária,
+      UF representada e dados de contato. Os dados são padronizados e limpos, incluindo tratamento de
+      valores nulos e normalização de campos de texto.
+    meta:
+      tags:
+        - bronze
+        - portal_transparencia
+    columns:
+      - name: id_deputado
+        description: "Identificador único do deputado no sistema da Câmara dos Deputados."
+        data_tests:
+          - not_null
+          - unique
+      - name: uri_deputado
+        description: "URI da API da Câmara para acessar informações detalhadas do deputado."
+      - name: nome_deputado
+        description: "Nome completo do deputado."
+        data_tests:
+          - not_null
+      - name: sigla_partido
+        description: "Sigla do partido político ao qual o deputado é filiado."
+      - name: uri_partido
+        description: "URI da API da Câmara para acessar informações do partido."
+      - name: sigla_uf
+        description: "Sigla da Unidade Federativa (UF) pela qual o deputado foi eleito."
+        data_tests:
+          - not_null
+      - name: id_legislatura
+        description: "Identificador da legislatura correspondente ao mandato do deputado."
+      - name: url_foto
+        description: "URL da foto oficial do deputado."
+      - name: email_deputado
+        description: "Endereço de e-mail oficial do deputado."
+      - name: data_ingestao
+        description: "Data e hora em que o registro foi ingerido no sistema."
+        data_tests:
+          - not_null
+
   # Bronze
   - name: afastamento_historico
     description: >
